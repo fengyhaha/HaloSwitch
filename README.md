@@ -308,6 +308,25 @@ HaloSwitch 常驻菜单栏，不占用 Dock 空间。所有 App 和窗口信息�
 
 HaloSwitch 不需要账号，不收集使用数据，也不会上传 App、窗口或按键内容。辅助功能权限仅用于识别正在运行的 App、读取可切换窗口以及处理全局切换快捷键。
 
+## 支持 HaloSwitch
+
+如果 HaloSwitch 对你有所帮助，并且你愿意支持它的后续开发，可以通过微信或支付宝请我喝杯咖啡 ☕️。
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="support/wechat.jpg" width="220" alt="微信收款码"><br>
+      <strong>微信支付</strong>
+    </td>
+    <td align="center">
+      <img src="support/alipay.jpg" width="220" alt="支付宝收款码"><br>
+      <strong>支付宝</strong>
+    </td>
+  </tr>
+</table>
+
+感谢你对 HaloSwitch 的支持 ❤️
+
 ## 软件许可
 
 HaloSwitch 为闭源软件。未经许可，不得复制、修改、反编译、重新分发或用于商业用途。

@@ -20,37 +20,39 @@ HaloSwitch does not launch apps that have fully quit. Its reopen feature applies
 
 ## Screenshots
 
-<!--
-Upload the main switcher screenshot to screenshots/radial-switcher.png, then uncomment the next line:
-![HaloSwitch radial switcher](screenshots/radial-switcher.png)
--->
-
 > 📷 **Screenshot 1: Radial switcher**  
-> Suggested content: the ring, app icons, jump letters, and selected app title.
 
-<!--
-Upload the Liquid Glass screenshot to screenshots/liquid-glass.png, then uncomment the next line:
-![HaloSwitch Liquid Glass](screenshots/liquid-glass.png)
--->
+<p align="center">
+  <img src="screenshots/radial-switcher.png" width="800" alt="HaloSwitch radial switcher">
+</p>
 
 > 📷 **Screenshot 2: Liquid Glass**  
-> Suggested content: use a colorful desktop background to show transparency, scattering, and refraction.
 
-<!--
-Upload the Settings screenshot to screenshots/settings.png, then uncomment the next line:
-![HaloSwitch Settings](screenshots/settings.png)
--->
+<p align="center">
+  <img src="screenshots/liquid-glass.png.png" width="400" alt="Liquid Glass">
+</p>
 
-> 📷 **Screenshot 3: Settings**  
-> Suggested content: shortcuts, sizing, language, materials, and scroll sensitivity.
+> 📷 **Screenshot 3: Sanded Glass** 
 
-<!--
-Upload the window picker screenshot to screenshots/window-selection.png, then uncomment the next line:
-![HaloSwitch window selection](screenshots/window-selection.png)
--->
+<p align="center">
+  <img src="screenshots/sanded-glass.png" width="400" alt="Sanded Glass">
+</p>
 
-> 📷 **Screenshot 4: Window selection**  
-> Suggested content: the window list attached to the selected app.
+> 📷 **Screenshot 4: Settings**  
+
+<p align="center">
+  <img src="screenshots/settings-english.png" width="200" alt="Settings English">
+</p>
+
+<p align="center">
+  <img src="screenshots/menu-bar-settings-english.png" width="400" alt="Menu Bar Settings English">
+</p>
+
+> 📷 **Screenshot 5: Window selection**  
+
+<p align="center">
+  <img src="screenshots/window-selection.png" width="400" alt="Window Selection">
+</p>
 
 ## Highlights
 
@@ -174,37 +176,39 @@ HaloSwitch 会显示 App 通过 macOS 辅助功能系统公开的窗口，恢复
 
 ## 界面预览
 
-<!--
-将轮盘主界面截图上传到 screenshots/radial-switcher.png，然后取消下一行注释：
-![HaloSwitch 轮盘主界面](screenshots/radial-switcher.png)
--->
+> 📷 **Screenshot 1: Radial switcher**  
 
-> 📷 **截图位置 1：轮盘主界面**  
-> 建议展示轮盘、App 图标、跳转字母和中间的 App 名称。
+<p align="center">
+  <img src="screenshots/radial-switcher.png" width="800" alt="HaloSwitch radial switcher">
+</p>
 
-<!--
-将液态玻璃截图上传到 screenshots/liquid-glass.png，然后取消下一行注释：
-![HaloSwitch 液态玻璃效果](screenshots/liquid-glass.png)
--->
+> 📷 **Screenshot 2: Liquid Glass**  
 
-> 📷 **截图位置 2：液态玻璃效果**  
-> 建议选择色彩丰富的桌面背景，突出透明、散射和折射效果。
+<p align="center">
+  <img src="screenshots/liquid-glass.png.png" width="400" alt="Liquid Glass">
+</p>
 
-<!--
-将设置界面截图上传到 screenshots/settings.png，然后取消下一行注释：
-![HaloSwitch 设置界面](screenshots/settings.png)
--->
+> 📷 **Screenshot 3: Sanded Glass** 
 
-> 📷 **截图位置 3：设置界面**  
-> 建议展示快捷键、尺寸、语言、界面材质和滚动灵敏度等设置。
+<p align="center">
+  <img src="screenshots/sanded-glass.png" width="400" alt="Sanded Glass">
+</p>
 
-<!--
-将窗口菜单截图上传到 screenshots/window-selection.png，然后取消下一行注释：
-![HaloSwitch 窗口选择](screenshots/window-selection.png)
--->
+> 📷 **Screenshot 4: Settings**  
 
-> 📷 **截图位置 4：窗口选择**  
-> 建议展示所选 App 旁边展开的窗口列表。
+<p align="center">
+  <img src="screenshots/settings-chinese.png" width="200" alt="Settings English">
+</p>
+
+<p align="center">
+  <img src="screenshots/menu-bar-settings-chinese.png" width="400" alt="Menu Bar Settings English">
+</p>
+
+> 📷 **Screenshot 5: Window selection**  
+
+<p align="center">
+  <img src="screenshots/window-selection.png" width="400" alt="Window Selection">
+</p>
 
 ## 主要特点
 

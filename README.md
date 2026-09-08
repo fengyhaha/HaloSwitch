@@ -11,6 +11,13 @@
   <a href="#中文">中文</a>
 </p>
 
+
+## Demo
+
+https://github.com/user-attachments/assets/0903dd25-e539-4693-b15e-42cc7660e28c
+
+---
+
 <p align="center">
   <img src="https://img.shields.io/badge/macOS-15%2B-black?logo=apple" alt="macOS 15+">
   <img src="https://img.shields.io/badge/Apple%20Silicon-supported-black" alt="Apple Silicon">

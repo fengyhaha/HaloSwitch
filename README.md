@@ -1,6 +1,6 @@
 # HaloSwitch
 
-> A fast, elegant radial app switcher built for macOS.
+> A fast, visual, window-aware radial switcher for macOS.
 
 [English](#english) · [中文](#中文) · [Download the latest release](../../releases/latest)
 
@@ -8,149 +8,127 @@
 
 ## English
 
-HaloSwitch replaces the traditional linear app switcher with a clean radial interface that appears around your pointer. Hold your preferred shortcut, then press an app's displayed letter, scroll, hover, click, or keep pressing `Tab` to reach exactly what you want.
+HaloSwitch is a mouse-centred radial switcher built to solve three everyday limitations of the native macOS app switcher:
 
-### Bring back windows that Command-Tab leaves behind
+- **Bring windows back, not just apps.** Native `Command + Tab` can activate a running app without restoring a usable window. HaloSwitch restores hidden or minimized windows and can ask a still-running, windowless app to reopen.
+- **Preview before switching.** Hover a window title—or select it with the keyboard—to see a live, low-latency preview at its desktop position.
+- **Switch with window-level intent.** HaloSwitch uses a Windows-style window-switching model: it tracks recent switchable windows, validates that they still exist, and returns to the previous usable window rather than treating every app as a single opaque item.
 
-> **Closed an app's last window while the app is still running? Native `Command + Tab` may activate the app without bringing a usable window back. HaloSwitch directly solves this everyday frustration.**
+The radial interface still groups windows by app, so you get fast app selection and precise window selection in one workflow.
 
-HaloSwitch can display the windows exposed by macOS Accessibility, restore hidden or minimized windows, and ask a still-running windowless app to reopen through the native macOS reopen mechanism. You can return to your work instead of switching to an app that appears active but shows nothing.
+## Window previews
 
-HaloSwitch does not launch apps that have fully quit. Its reopen feature applies when the app process is still running but has no visible window.
+Enable **Window Previews** to see a window before switching to it:
+
+- Hover a title in the side window menu, or press the backtick key (`` ` ``) to select windows from the keyboard.
+- Visible windows refresh at up to approximately 15 FPS after the configured preview delay.
+- Minimized windows keep the most recent in-memory frame captured before minimization.
+- Choose a longest-edge resolution from 640 px through 2K (2560 px).
+- Set the preview delay from immediate to 2 seconds in 100 ms steps.
+- Set the in-memory preview cache from 32 MiB to 200 MiB.
+- Preview panels fade in and out smoothly and stay below the switcher ring and title menu.
+
+Preview quality depends on what macOS and the target app allow ScreenCaptureKit to capture. Protected video, DRM content, secure system windows, and apps that refuse capture may appear blank or unavailable. A window minimized before HaloSwitch has captured it has no historical frame to display.
+
+## Permissions
+
+HaloSwitch uses two separate macOS permissions:
+
+| Permission | Required? | Used for |
+| --- | --- | --- |
+| **Accessibility** | **Required** | Intercepting the selected global shortcut; reading, restoring, and raising switchable windows |
+| **Screen Recording** | Optional | Capturing window previews only |
+
+App and window switching continues to work if Screen Recording permission is denied or Window Previews is disabled. macOS may display its recording privacy indicator while previews are being captured; that indicator is controlled by the system.
+
+HaloSwitch does not request Screen Recording permission until you explicitly enable Window Previews.
+
+Preview frames stay in memory, are limited by the configured cache size, and are never written to disk or uploaded. HaloSwitch does not record audio.
 
 ## Screenshots
-
-> 📷 **Screenshot 1: Radial switcher**  
 
 <p align="center">
   <img src="screenshots/radial-switcher.png" width="800" alt="HaloSwitch radial switcher">
 </p>
 
-> 📷 **Screenshot 2: Liquid Glass**  
-
 <p align="center">
-  <img src="screenshots/liquid-glass.png.png" width="400" alt="Liquid Glass">
-</p>
-
-> 📷 **Screenshot 3: Sanded Glass** 
-
-<p align="center">
-  <img src="screenshots/sanded-glass.png" width="400" alt="Sanded Glass">
-</p>
-
-> 📷 **Screenshot 4: Settings**  
-
-<p align="center">
-  <img src="screenshots/settings-english.png" width="200" alt="Settings English">
+  <img src="screenshots/window-selection.png" width="500" alt="HaloSwitch window selection and preview">
 </p>
 
 <p align="center">
-  <img src="screenshots/menu-bar-settings-english.png" width="400" alt="Menu Bar Settings English">
+  <img src="screenshots/liquid-glass.png" width="400" alt="HaloSwitch Liquid Glass appearance">
+  <img src="screenshots/sanded-glass.png" width="400" alt="HaloSwitch classic glass appearance">
 </p>
 
-> 📷 **Screenshot 5: Window selection**  
-
 <p align="center">
-  <img src="screenshots/window-selection.png" width="400" alt="Window Selection">
+  <img src="screenshots/settings-english.png" width="400" alt="HaloSwitch Liquid Glass appearance">
+  <img src="screenshots/menubar-settings-english.png" width="400" alt="HaloSwitch classic glass appearance">
 </p>
 
 ## Highlights
 
-### Jump to an app by letter
+### Restore the window you actually want
 
-Every app receives a visible jump letter. While the ring is open, press that letter to select the app immediately. If several apps share the same letter, press it repeatedly to cycle through them.
+When available, HaloSwitch starts from the previous recent window that is still running, valid, and raiseable. Closed or stale windows are skipped. Releasing the activation modifier immediately returns to that exact window, while the ring highlights its owning app from the first frame.
 
-HaloSwitch supports common Latin characters, compatibility mappings, and macOS system transliteration. Choose the full keyboard scheme or the left-hand keyboard zone for comfortable one-handed control.
+Hidden and minimized windows are restored when selected. If an app is still running after its last window was closed, HaloSwitch sends the native macOS reopen request. Apps that have fully quit are not relaunched.
 
-### Keyboard, scroll wheel, trackpad, and pointer control
+### App ring plus window-level switching
 
-Use the familiar `Command + Tab`, or change the activation shortcut to `Option + Tab` or `Control + Tab`. Once the ring appears, you can:
+Select an app with `Tab`, `Shift + Tab`, its displayed letter, the scroll wheel, trackpad, or pointer. After the configurable query delay, the side menu shows that app's switchable windows. Press `` ` `` to cycle through them, hover a title to select it, or click a title to open it immediately.
 
-- Press `Tab` to move forward or add `Shift` to move backward.
-- Press a displayed letter to jump directly to an app.
-- Scroll down to move clockwise or up to move counterclockwise.
-- Hover over a sector and release the modifier to switch.
-- Click a sector to activate its app immediately.
+Confirmed attached dialogs and auxiliary windows are treated as part of their host window for focus history. This makes actions such as opening a browser Find dialog and then switching back behave closer to a window-centric Windows switcher.
 
-Trackpad movement is accumulated smoothly, and momentum events are ignored after you release your fingers to prevent accidental extra selections.
+### Multilingual jump letters
 
-### Switch apps and individual windows
+Every app receives a stable jump letter using macOS transliteration, Latin compatibility mappings, and a stable fallback. Choose the full keyboard or left-hand keyboard zone, and optionally hide displayed letters without disabling keyboard jumping.
 
-Selecting an app reveals the windows that it exposes through macOS Accessibility. Press the backtick key (`` ` ``) to cycle through those windows, or hover and click a window title directly.
+### Flexible ordering and appearance
 
-HaloSwitch restores hidden and minimized windows when selected. A running app with no visible window receives the native reopen request, addressing a common limitation of the standard macOS switcher.
+Choose recently used, launch order, multilingual alphabetical order, or the current macOS Dock order. Customize the ring radius, icon size, Dock-style magnification, menu typography, scroll sensitivity, classic blur, Liquid Glass, opacity, and scattering radius.
 
-### Settings that adapt to you
+Liquid Glass uses the native macOS appearance on macOS 26 or later. On macOS 15–25, the preference is preserved while HaloSwitch safely renders classic blur.
 
-Changes apply immediately, including while the switcher is visible:
+## Controls
 
-- Ring radius, icon size, and jump-letter size
-- Dock-style icon magnification
-- `Command`, `Option`, or `Control` activation shortcut
-- Recently used, launch order, or alphabetical app ordering
-- Full-keyboard or left-hand keyboard jump-letter scheme
-- Scroll-wheel and trackpad sensitivity
-- Window-menu text size and untitled-window visibility
-- Entrance animation
-- Classic blur or Liquid Glass appearance
-- Liquid Glass scattering radius
-- Simplified Chinese and English interface languages
-
-### Native, lightweight, and responsive
-
-HaloSwitch is built with Apple's macOS technology stack, including Swift, SwiftUI, AppKit, Core Graphics, Accessibility, and NSWorkspace. It has no third-party runtime dependencies.
-
-Global input events receive only lightweight, immediate processing. App metadata and icons are cached, and the overlay panels are reused to keep switching fast while avoiding unnecessary resource use.
-
-HaloSwitch lives in the menu bar and stays out of the Dock. App and window information is processed locally and is never uploaded.
-
-## Liquid Glass
-
-On macOS 26 or later, HaloSwitch offers a native-style Liquid Glass ring with transparency, background scattering, edge refraction, and soft highlights.
-
-Liquid Glass is not enabled automatically. Open HaloSwitch from the menu bar, choose **Settings**, and change **Interface Material** to **Liquid Glass**. You can also adjust the glass scattering radius from the same settings window.
-
-On macOS 15–25, the Liquid Glass preference is preserved while HaloSwitch safely renders the classic blur appearance. The selected glass style becomes available after upgrading to macOS 26 or later.
+| Action | Result |
+| --- | --- |
+| `Command + Tab` | Open the ring; configurable as `Option + Tab` or `Control + Tab` |
+| Press `Tab` again | Select the next app |
+| `Shift + shortcut + Tab` | Select the previous app |
+| Press a jump letter | Select the matching app; repeat to cycle matches |
+| Scroll down / up | Select clockwise / counterclockwise |
+| Hover a ring sector | Select that app |
+| Click a ring sector | Open that app immediately |
+| Press `` ` `` | Cycle through the selected app's windows and preview the highlighted window |
+| Hover a window title | Select and preview that window |
+| Click a window title | Open that window immediately |
+| Release the activation modifier | Confirm the current selection |
+| `Escape` | Cancel switching |
 
 ## Installation
 
 1. Download the latest `.dmg` from [Releases](../../releases/latest).
 2. Open the DMG and drag **HaloSwitch** into **Applications**.
 3. Launch HaloSwitch.
-4. Open **System Settings → Privacy & Security → Accessibility** and allow HaloSwitch to control your Mac.
-5. Return to the HaloSwitch menu-bar icon and choose **Recheck Accessibility Permission**. A restart is normally unnecessary.
+4. Open **System Settings → Privacy & Security → Accessibility** and enable HaloSwitch.
+5. Return to the HaloSwitch menu-bar icon and choose **Recheck Accessibility Permission** if interception does not become active immediately.
+6. To use previews, enable **Window Previews**, then allow HaloSwitch under **System Settings → Privacy & Security → Screen Recording** (the exact system label may vary by macOS version).
 
-If macOS says that it cannot verify the developer, try opening HaloSwitch once, then go to **System Settings → Privacy & Security** and choose **Open Anyway** for HaloSwitch.
-
-## Controls
-
-| Action | Result |
-| --- | --- |
-| `Command + Tab` | Open the ring and select the default app; configurable as `Option + Tab` or `Control + Tab` |
-| Press `Tab` again | Select the next app |
-| `Shift + shortcut + Tab` | Move backward through apps |
-| Press a displayed letter | Jump to the matching app; repeat to cycle apps sharing that letter |
-| Scroll down | Select clockwise |
-| Scroll up | Select counterclockwise |
-| Hover over a sector | Make that app the current selection |
-| Click a sector | Activate that app immediately |
-| Press `` ` `` | Cycle through windows belonging to the selected app |
-| Hover or click a window title | Select or immediately open that window |
-| Release the activation modifier | Confirm the current selection |
-| `Escape` | Cancel switching |
+If macOS cannot verify the developer, try opening HaloSwitch once, then go to **System Settings → Privacy & Security** and choose **Open Anyway**.
 
 ## Requirements and notes
 
 - macOS 15 or later
 - macOS 26 or later for Liquid Glass
-- Accessibility permission is required to intercept the configured global shortcut
-- HaloSwitch shows running apps and does not launch apps that have fully quit
-- Some third-party apps do not expose every window through Accessibility; app-level switching remains available
-- Settings are stored locally and restored on the next launch
+- Accessibility permission is required
+- Screen Recording permission is required only for optional window previews
+- Some third-party apps do not expose or permit access to every window
+- All settings and preview data remain local
 
 ## Privacy
 
-HaloSwitch requires no account, collects no usage data, and does not upload app, window, or keyboard information. Accessibility permission is used only to identify running apps, access switchable windows, and handle the global switcher shortcut.
+HaloSwitch requires no account, collects no usage data, and uploads no app names, window titles, keyboard input, or preview images. Accessibility data is used only for switching; preview images remain in the bounded in-memory cache and are discarded automatically.
 
 ## License
 
@@ -164,153 +142,131 @@ Copyright © 2026. All rights reserved.
 
 ## 中文
 
-HaloSwitch 将传统的线性 App 切换方式变成简洁直观的环形轮盘。按住你设置的呼出快捷键，轮盘就会出现在鼠标附近；继续按 `Tab`、滚动鼠标滚轮、移动或点击鼠标，或者直接按下轮盘中显示的首字母，就能快速找到目标 App。
+HaloSwitch 是一款以鼠标位置为中心的 macOS 环形切换器，重点解决原生 App 切换器的三个常见痛点：
 
-### 解决原生 Command-Tab 无法重新显示窗口的痛点
+- **解决原生 `Command + Tab` 无法重新显示窗口的痛点。** App 仍在运行但窗口已经关闭、隐藏或最小化时，原生切换器可能只激活 App，却不显示可用窗口；HaloSwitch 会恢复可恢复的窗口，并可请求仍在运行的无窗口 App 重新打开。
+- **鼠标悬浮即可预览窗口内容。** 将指针停留在窗口标题上，或使用键盘选中窗口，即可在桌面原位置查看低延迟预览，确认内容后再切换。
+- **采用接近 Windows 的窗口级切换逻辑。** HaloSwitch 以窗口为单位记录最近使用顺序，呼出时检查窗口是否仍然存在且可以置前，优先返回上一个真实可切换的窗口，而不是只把整个 App 当作一个切换单位。
 
-> **关闭了 App 的最后一个窗口，但 App 仍在后台运行？原生 `Command + Tab` 往往只能激活 App，却无法重新显示一个可用窗口。HaloSwitch 直击并解决了这个日常痛点。**
+轮盘仍然按 App 对窗口进行分组，因此既保留了 App 级快速选择，也能精确切换到某个窗口。
 
-HaloSwitch 会显示 App 通过 macOS 辅助功能系统公开的窗口，恢复隐藏或最小化的窗口；当 App 仍在运行但已经没有可见窗口时，还会通过 macOS 原生机制向它发送重新打开请求。你不会再切换到一个看似已经激活、屏幕上却什么都没有的 App。
+## 窗口预览
 
-需要说明的是，HaloSwitch 不会启动已经彻底退出的 App。重新打开功能针对的是进程仍在运行、但最后一个窗口已经关闭的情况。
+开启 **窗口预览** 后，可以在真正切换前查看目标窗口：
+
+- 鼠标悬停侧边窗口标题，或按反引号键（`` ` ``）使用键盘选择窗口。
+- 经过设定的预览延迟后，可见窗口最高以约 15 FPS 更新。
+- 窗口最小化后，继续显示最小化前最后一次成功保存在内存中的画面。
+- 预览清晰度可从最长边 640 px 调整至 2K（2560 px）。
+- 预览延迟可在“立即”至 2 秒之间调节，步进为 100 ms。
+- 预览内存缓存可在 32 MiB 至 200 MiB 之间调节。
+- 预览窗口带有平滑渐入渐出，并始终位于轮盘和标题菜单下方。
+
+预览效果取决于 macOS 和目标 App 是否允许 ScreenCaptureKit 捕获其内容。受保护视频、DRM 内容、安全系统窗口或拒绝捕获的 App 可能显示空白或“没有可用预览”。如果窗口在 HaloSwitch 第一次捕获前就已经最小化，也无法还原它此前的历史画面。
+
+## 权限说明
+
+HaloSwitch 使用两项相互独立的 macOS 权限：
+
+| 权限 | 是否必需 | 用途 |
+| --- | --- | --- |
+| **辅助功能** | **必须授权** | 接管设定的全局切换快捷键，以及读取、恢复和置前可切换窗口 |
+| **屏幕录制** | 仅预览需要 | 捕获窗口预览画面，不用于 App 或窗口切换本身 |
+
+拒绝屏幕录制权限或关闭窗口预览，不会影响 HaloSwitch 的 App 和窗口切换功能。捕获预览期间，macOS 可能显示系统录屏隐私指示图标；该图标由系统控制。
+
+在你主动开启窗口预览之前，HaloSwitch 不会申请屏幕录制权限。
+
+预览画面只保存在受容量限制的内存缓存中，不会写入磁盘或上传网络。HaloSwitch 不会录制音频。
 
 ## 界面预览
 
-> 📷 **Screenshot 1: Radial switcher**  
-
 <p align="center">
-  <img src="screenshots/radial-switcher.png" width="800" alt="HaloSwitch radial switcher">
-</p>
-
-> 📷 **Screenshot 2: Liquid Glass**  
-
-<p align="center">
-  <img src="screenshots/liquid-glass.png.png" width="400" alt="Liquid Glass">
-</p>
-
-> 📷 **Screenshot 3: Sanded Glass** 
-
-<p align="center">
-  <img src="screenshots/sanded-glass.png" width="400" alt="Sanded Glass">
-</p>
-
-> 📷 **Screenshot 4: Settings**  
-
-<p align="center">
-  <img src="screenshots/settings-chinese.png" width="200" alt="Settings English">
+  <img src="screenshots/radial-switcher.png" width="800" alt="HaloSwitch 环形轮盘">
 </p>
 
 <p align="center">
-  <img src="screenshots/menu-bar-settings-chinese.png" width="400" alt="Menu Bar Settings English">
+  <img src="screenshots/window-selection.png" width="500" alt="HaloSwitch 窗口选择和预览">
 </p>
 
-> 📷 **Screenshot 5: Window selection**  
+<p align="center">
+  <img src="screenshots/liquid-glass.png" width="400" alt="HaloSwitch 液态玻璃界面">
+  <img src="screenshots/sanded-glass.png" width="400" alt="HaloSwitch 经典毛玻璃界面">
+</p>
 
 <p align="center">
-  <img src="screenshots/window-selection.png" width="400" alt="Window Selection">
+  <img src="screenshots/settings-chinese.png" width="400" alt="HaloSwitch Liquid Glass appearance">
+  <img src="screenshots/menubar-settings-chinese.png" width="400" alt="HaloSwitch classic glass appearance">
 </p>
 
 ## 主要特点
 
-### 按首字母直达 App
+### 返回真正需要的窗口
 
-每个 App 都会显示一个跳转字母。轮盘打开时，按下对应字母即可立即选中目标 App；多个 App 使用同一个字母时，重复按键可以在它们之间循环选择。
+有可用窗口历史时，HaloSwitch 会从最近使用的窗口开始，依次检查目标 App 是否仍在运行、窗口是否仍然有效并支持置前。已经关闭或失效的窗口会被跳过。轮盘第一次出现时就会选中最终目标窗口所属的 App；直接松开修饰键，则返回同一个窗口。
 
-HaloSwitch 支持常见拉丁字母、兼容字符和 macOS 系统音译。你还可以选择“全键盘”或“左手键盘区”字母方案，让单手操作更加顺手。
+选择隐藏或最小化窗口时，HaloSwitch 会将其恢复。如果 App 进程仍在运行，但最后一个窗口已经关闭，HaloSwitch 会发送 macOS 原生重新打开请求；已经完全退出的 App 不会被重新启动。
 
-### 键盘、滚轮、触控板和鼠标都能操作
+### App 轮盘与窗口级切换结合
 
-你可以使用熟悉的 `Command + Tab`，也可以改用 `Option + Tab` 或 `Control + Tab`。轮盘出现后，可以通过以下任意方式选择：
+你可以使用 `Tab`、`Shift + Tab`、跳转字母、滚轮、触控板或鼠标选择 App。经过可调节的窗口查询延迟后，侧边菜单会显示该 App 中真实可切换的窗口。按 `` ` `` 可循环选中窗口，悬停标题可选择窗口，点击标题则立即打开。
 
-- 按 `Tab` 顺序切换，配合 `Shift` 反向切换。
-- 按轮盘中显示的首字母直达对应 App。
-- 向下滚动鼠标滚轮或触控板，顺时针选择；向上滚动则逆时针选择。
-- 将鼠标移到扇形区域后松开修饰键，切换到对应 App。
-- 点击扇形，立即打开对应 App。
+能够被系统关系明确确认的对话框和辅助窗口会在焦点历史中归入其宿主窗口。因此，在浏览器中打开页面搜索框后再切换时，行为会更接近以窗口为单位管理的 Windows 切换器。
 
-触控板位移会平滑累计，手指离开后的惯性事件不会继续旋转轮盘，减少误选。
+### 多语言跳转字母
 
-### 在 App 和窗口之间自由切换
+HaloSwitch 通过 macOS 系统转写、拉丁兼容映射和稳定回退，为每个 App 分配可用字母。你可以选择全键盘或左手键盘区方案，也可以隐藏轮盘上的字母而不关闭键盘跳转。
 
-选中 App 后，HaloSwitch 会显示它通过 macOS 辅助功能系统公开的窗口。按反引号键（`` ` ``）可以在窗口之间切换，也可以使用鼠标悬停或点击窗口标题。
+### 灵活的排序与外观
 
-隐藏或最小化的窗口会在选择后自动恢复。仍在运行但没有可见窗口的 App 会收到系统原生的重新打开请求，解决原生切换器只激活 App、却没有窗口出现的问题。
+App 可按最近使用、打开顺序、多语言首字母或当前 Dock 顺序排列。你还可以调整轮盘半径、图标大小、Dock 风格放大倍率、菜单文字、滚动灵敏度、经典毛玻璃、液态玻璃、不透明度和散射半径。
 
-### 丰富且即时生效的设置
+液态玻璃在 macOS 26 或更高版本中使用系统原生效果；macOS 15–25 会保存该选择，并安全回退为经典毛玻璃。
 
-HaloSwitch 提供完整的可视化设置界面，修改后立即生效，即使轮盘正在显示也不例外：
+## 操作指南
 
-- 轮盘半径、App 图标大小和跳转字母大小
-- Dock 风格的图标悬停放大倍率
-- `Command`、`Option` 或 `Control` 呼出快捷键
-- 最近使用、打开顺序或 App 首字母排列
-- 全键盘或左手键盘区跳转字母方案
-- 鼠标滚轮与触控板切换灵敏度
-- 窗口菜单文字大小和未命名窗口显示选项
-- 入场动画
-- 经典毛玻璃或液态玻璃界面
-- 液态玻璃散射半径
-- 简体中文与 English 界面语言
-
-### 原生、轻量、响应迅速
-
-HaloSwitch 基于 Apple 的 macOS 原生技术栈构建，包括 Swift、SwiftUI、AppKit、Core Graphics、Accessibility 和 NSWorkspace，不依赖第三方运行库。
-
-全局输入事件只进行轻量、即时的处理；App 信息和图标经过缓存，轮盘面板也会重复利用。这让日常切换保持快速流畅，同时减少不必要的资源消耗。
-
-HaloSwitch 常驻菜单栏，不占用 Dock 空间。所有 App 和窗口信息均在本机处理，不会上传到网络。
-
-## 液态玻璃
-
-在 macOS 26 或更高版本中，HaloSwitch 支持原生风格的液态玻璃轮盘，包括透明背景、光线散射、边缘折射和柔和高光。
-
-液态玻璃默认不会自动启用。请点击菜单栏中的 HaloSwitch 图标，打开 **设置**，在 **界面材质** 中选择 **液态玻璃**。你还可以在同一设置窗口中调整玻璃散射半径。
-
-在 macOS 15–25 中选择液态玻璃时，HaloSwitch 会自动使用经典毛玻璃显示，并保留你的选择；升级到 macOS 26 或更高版本后即可显示液态玻璃。
+| 操作 | 效果 |
+| --- | --- |
+| `Command + Tab` | 呼出轮盘；可改为 `Option + Tab` 或 `Control + Tab` |
+| 继续按 `Tab` | 选择下一个 App |
+| `Shift + 快捷键 + Tab` | 选择上一个 App |
+| 按跳转字母 | 选择匹配的 App；重复按键可循环选择 |
+| 滚轮或触控板向下／向上 | 顺时针／逆时针选择 App |
+| 悬停轮盘扇形 | 选中对应 App |
+| 点击轮盘扇形 | 立即打开对应 App |
+| 按反引号键 `` ` `` | 循环选择当前 App 的窗口，并预览高亮窗口 |
+| 悬停窗口标题 | 选择并预览该窗口 |
+| 点击窗口标题 | 立即打开该窗口 |
+| 松开呼出快捷键的修饰键 | 确认当前选择 |
+| `Escape` | 取消本次切换 |
 
 ## 安装方法
 
 1. 在 [Releases](../../releases/latest) 下载最新的 `.dmg` 文件。
 2. 打开 DMG，将 **HaloSwitch** 拖入 **Applications（应用程序）** 文件夹。
 3. 启动 HaloSwitch。
-4. 前往 **系统设置 → 隐私与安全性 → 辅助功能**，允许 HaloSwitch 控制电脑。
-5. 返回菜单栏，点击 HaloSwitch 图标并选择 **重新检查辅助功能权限**。授权通常不需要重启 App。
+4. 前往 **系统设置 → 隐私与安全性 → 辅助功能**，开启 HaloSwitch。
+5. 如果快捷键没有立即被接管，请返回 HaloSwitch 菜单栏图标并选择 **重新检查辅助功能权限**。
+6. 如需窗口预览，请在设置中开启 **窗口预览**，然后前往 **系统设置 → 隐私与安全性 → 屏幕录制（或“屏幕与系统音频录制”）** 授权 HaloSwitch。
 
 如果 macOS 提示无法验证开发者，请先尝试打开 HaloSwitch 一次，然后前往 **系统设置 → 隐私与安全性**，找到 HaloSwitch 并选择 **仍要打开**。
-
-## 操作指南
-
-| 操作 | 效果 |
-| --- | --- |
-| `Command + Tab` | 呼出轮盘并选择默认 App；可改为 `Option + Tab` 或 `Control + Tab` |
-| 继续按 `Tab` | 选择下一个 App |
-| `Shift + 快捷键 + Tab` | 反向选择 App |
-| 按显示的字母 | 直达对应 App；重复按相同字母可循环选择 |
-| 滚轮或触控板向下 | 顺时针选择 App |
-| 滚轮或触控板向上 | 逆时针选择 App |
-| 鼠标悬停扇形 | 将对应 App 设为当前选择 |
-| 点击扇形 | 立即切换到对应 App |
-| 按反引号键 `` ` `` | 在当前 App 的窗口之间切换 |
-| 悬停或点击窗口标题 | 选择或立即打开对应窗口 |
-| 松开呼出快捷键的修饰键 | 确认当前选择并完成切换 |
-| `Escape` | 取消本次切换 |
 
 ## 系统要求与使用说明
 
 - macOS 15 或更高版本
 - 液态玻璃需要 macOS 26 或更高版本
-- 必须授予辅助功能权限，HaloSwitch 才能监听并替代全局切换快捷键
-- HaloSwitch 只显示正在运行的 App，不会启动已经彻底退出的 App
-- 某些第三方 App 不会通过辅助功能接口公开全部窗口，但仍可进行 App 级切换
-- 所有设置均保存在本机，并会在下次启动时继续使用
+- 必须授予辅助功能权限
+- 只有启用可选的窗口预览时才需要屏幕录制权限
+- 某些第三方 App 不会公开或允许捕获全部窗口
+- 所有设置和预览数据均保存在本机
 
 ## 隐私说明
 
-HaloSwitch 不需要账号，不收集使用数据，也不会上传 App、窗口或按键内容。辅助功能权限仅用于识别正在运行的 App、读取可切换窗口以及处理全局切换快捷键。
+HaloSwitch 不需要账号，不收集使用数据，也不会上传 App 名称、窗口标题、按键内容或预览图片。辅助功能数据仅用于窗口切换；预览画面只存在于容量受限的内存缓存中，并会自动释放。
 
 ## 支持 HaloSwitch
 
-如果 HaloSwitch 对你有所帮助，并且你愿意支持它的后续开发，可以通过微信或支付宝请我喝杯咖啡 ☕️。
+如果 HaloSwitch 对你有所帮助，并且你愿意支持后续开发，可以通过微信或支付宝请我喝杯咖啡 ☕️。
 
 <table>
   <tr>

@@ -2,6 +2,7 @@
 
 > **A fast, visual, window-aware radial switcher for macOS.**
 > Switch apps and individual windows with your keyboard, mouse, or trackpad — and preview a window before switching to it.
+> **Turn `Command + Tab` into a true window-level shortcut — jump back to the window you were just using, not merely the previous app.**
 
 <p align="center">
   <a href="../../releases/latest"><strong>Download the latest release</strong></a>
@@ -40,7 +41,9 @@ https://github.com/user-attachments/assets/0903dd25-e539-4693-b15e-42cc7660e28c
 
 ## Why HaloSwitch?
 
-The native macOS `Command + Tab` switcher works well for switching between apps, but it treats each app as a single item.
+The native macOS `Command + Tab` switcher switches between **apps**. HaloSwitch can switch back to the **previously used window** instead.
+
+This means a quick `Command + Tab` can return you directly to the window you were just using — not merely activate the app that owns it.
 
 HaloSwitch adds **window-level switching** while keeping app switching fast and simple.
 
@@ -92,7 +95,9 @@ Select apps using:
 
 HaloSwitch keeps track of recent switchable windows instead of treating every app as one opaque item.
 
-When possible, reopening the switcher returns to the previous valid, usable window.
+A quick `Command + Tab` can return directly to the **previously used valid window**, rather than merely switching to the previous app.
+
+This turns the familiar `Command + Tab` gesture into a fast **window-level jump** while preserving the full radial app switcher when you keep holding the shortcut.
 
 ### 👁 Live window previews
 
@@ -147,7 +152,7 @@ On macOS 15–25, HaloSwitch automatically falls back to the classic blur appear
 
 | Action                           | Result                                       |
 | -------------------------------- | -------------------------------------------- |
-| `Command + Tab`                  | Open HaloSwitch                              |
+| `Command + Tab`                  | Quickly return to the previously used window; keep holding to open the full switcher |
 | `Option + Tab` / `Control + Tab` | Can be configured as the activation shortcut |
 | Press `Tab` again                | Select the next app                          |
 | `Shift + shortcut + Tab`         | Select the previous app                      |
@@ -306,6 +311,7 @@ Copyright © 2026. All rights reserved.
 
 > **快速、直观、以窗口为核心的 macOS 环形切换器。**
 > 使用键盘、鼠标或触控板快速切换 App 和具体窗口，并可在切换前直接预览窗口内容。
+> **让 `Command + Tab` 从 App 级切换升级为窗口级切换——直接返回上一个使用的窗口，而不只是上一个 App。**
 
 <p align="center">
   <a href="../../releases/latest"><strong>下载最新版本</strong></a>
@@ -313,7 +319,11 @@ Copyright © 2026. All rights reserved.
 
 ## 为什么使用 HaloSwitch？
 
-macOS 原生 `Command + Tab` 很适合在 App 之间切换，但它主要以 **App** 为单位，而不是以 **窗口** 为单位。
+macOS 原生 `Command + Tab` 切换的是 **App**。
+
+HaloSwitch 则可以让 `Command + Tab` 直接返回**上一个使用的窗口**，而不只是激活这个窗口所属的 App。
+
+这意味着你可以用最熟悉的快捷键，在实际工作的窗口之间进行快速跳转，同时仍然保留完整的 App 与窗口选择能力。
 
 HaloSwitch 在保留快速 App 切换的同时，加入了更完整的**窗口级切换能力**。
 
@@ -364,11 +374,13 @@ HaloSwitch 会围绕当前鼠标位置显示，因此每个 App 与指针之间�
 
 完成选择。
 
-### 🪟 窗口级切换
+### 🪟 窗口级快速切换
 
-HaloSwitch 会记录最近使用的真实可切换窗口，而不是只把整个 App 当作一个切换单位。
+HaloSwitch 记录的是最近使用的真实可切换**窗口**，而不只是 App。
 
-再次呼出 HaloSwitch 时，会尽可能返回上一个仍然有效、可以正常置前的窗口。
+快速按下 `Command + Tab`，可以直接返回**上一个使用的有效窗口**，而不是像 macOS 原生切换器一样只切换到上一个 App。
+
+因此，你可以用熟悉的 `Command + Tab` 在最近使用的两个窗口之间快速跳转，实现真正的**窗口级快速切换**；如果继续按住快捷键，则可以进入完整的环形 App / 窗口选择界面。
 
 ### 👁 实时窗口预览
 
@@ -425,7 +437,7 @@ macOS 15–25 会自动安全回退为经典毛玻璃效果。
 
 | 操作                               | 效果             |
 | -------------------------------- | -------------- |
-| `Command + Tab`                  | 呼出 HaloSwitch  |
+| `Command + Tab`                  | 快速返回上一个使用的窗口；继续按住可进入完整 HaloSwitch 切换界面 |
 | `Option + Tab` / `Control + Tab` | 可以设置为呼出快捷键     |
 | 继续按 `Tab`                        | 选择下一个 App      |
 | `Shift + 快捷键 + Tab`              | 选择上一个 App      |
